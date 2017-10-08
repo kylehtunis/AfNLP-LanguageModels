@@ -9,7 +9,6 @@ f=file.read()
 f=f.decode('utf-16')
 f=f.split()
 #print(f)
-word_index_dict={}
 i=0
 for word in f:
     word_index_dict[word]=i
