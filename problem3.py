@@ -50,12 +50,11 @@ probs=normalize(counts, norm='l1', axis=1)
 
 #TODO: writeout bigram probabilities
 wf=open('bigram_probs.txt','w+')
-for i in range(len(probs)):
-    for j in range(len(probs[i])):
-        if probs[i][j]==0.:
-            continue
-        out='p('+str(list(word_index_dict)[j])+' | '+str(list(word_index_dict)[i])+') = '+str(probs[i][j])+'\n'
-        wf.write(out)
+
+wf.write('p(the | all) = '+str(probs[word_index_dict['all']][word_index_dict['the']])+'\n')
+wf.write('p(jury | the) = '+str(probs[word_index_dict['the']][word_index_dict['jury']])+'\n')
+wf.write('p(campaign | the) = '+str(probs[word_index_dict['the']][word_index_dict['campaign']])+'\n')
+wf.write('p(calls | anonymous) = '+str(probs[word_index_dict['anonymous']][word_index_dict['calls']])+'\n')
         
 wf.close()
 
