@@ -1,6 +1,6 @@
 import codecs
 import numpy as np
-#from generate import GENERATE
+from generate import GENERATE
 
 
 vocab = codecs.open("brown_vocab_100.txt", "r", encoding="utf-16")
@@ -23,7 +23,7 @@ file.close()
 
 f = codecs.open("brown_100.txt", encoding = "utf-16")
 
-counts = np.ndarray((len(word_index_dict)), int)
+counts = np.ndarray((len(word_index_dict)))
 counts[:]=0
 
 #TODO: iterate through file and update counts
@@ -37,6 +37,7 @@ f.close()
 
 #TODO: normalize and writeout counts. 
 probs=counts/np.sum(counts)
+#print(counts)
 #print(probs)
 wf=open('unigram_probs.txt','w+')
 wf.write(str(probs.tolist()))
