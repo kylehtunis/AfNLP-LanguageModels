@@ -1,3 +1,5 @@
+##answer to question on the bottom
+
 import codecs
 import numpy as np
 from generate import GENERATE
@@ -33,6 +35,8 @@ for word in corpus:
     word=word.rstrip().lower()
     counts[word_index_dict[word]]+=1
 
+print(counts.tolist())
+
 f.close()
 
 #TODO: normalize and writeout counts. 
@@ -44,3 +48,6 @@ wf.write(str(probs.tolist()))
 wf.close()
 
 
+#answer to question: roughly 2/3 of the words were only seen once. I would expect this 
+#ratio to be lower in a larger corpus, since the vocabulary of any corpus tends to be much
+#lower than the size
