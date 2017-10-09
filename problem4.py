@@ -67,6 +67,24 @@ wf.close()
 
 f.close()
 
+##part 6 code
+f = codecs.open("toy_corpus.txt", encoding = "utf-16")
+wf=open('smoothed_eval.txt','w+')
+sents=f.readlines()
+for sent in sents:
+    sent=sent.split()
+    sent_len=len(sent)
+    prob=1.
+    prev='<s>'
+    for word in sent:
+        word=word.rstrip().lower()
+        prob*=probs[word_index_dict[prev]][word_index_dict[word]]
+        prev=word
+    perplexity=1/(pow(prob, 1./sent_len))
+    wf.write(str(perplexity)+'\n')
+f.close()
+wf.close()
+
 
 #Answer to question: the probabilities drop much less for the bigrams conditioned on 'the'
 #because the counts are much higher, so the extra .1*n added to the denominator is not as significant

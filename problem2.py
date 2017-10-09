@@ -35,7 +35,7 @@ for word in corpus:
     word=word.rstrip().lower()
     counts[word_index_dict[word]]+=1
 
-print(counts.tolist())
+#print(counts.tolist())
 
 f.close()
 
@@ -45,6 +45,35 @@ probs=counts/np.sum(counts)
 #print(probs)
 wf=open('unigram_probs.txt','w+')
 wf.write(str(probs.tolist()))
+wf.close()
+
+#part 6 code
+f = codecs.open("toy_corpus.txt", encoding = "utf-16")
+wf=open('unigram_eval.txt','w+')
+sents=f.readlines()
+for sent in sents:
+    sent=sent.split()
+    prob=1.
+    for word in sent:
+        word=word.rstrip().lower()
+        prob*=probs[word_index_dict[word]]
+    wf.write(str(prob)+'\n')
+f.close()
+wf.close()
+
+f = codecs.open("toy_corpus.txt", encoding = "utf-16")
+wf=open('unigram_eval.txt','w+')
+sents=f.readlines()
+for sent in sents:
+    sent=sent.split()
+    sent_len=len(sent)
+    prob=1.
+    for word in sent:
+        word=word.rstrip().lower()
+        prob*=probs[word_index_dict[word]]
+    perplexity=1/(pow(prob, 1./sent_len))
+    wf.write(str(perplexity)+'\n')
+f.close()
 wf.close()
 
 

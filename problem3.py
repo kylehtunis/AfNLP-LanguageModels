@@ -60,3 +60,24 @@ wf.close()
 
 
 f.close()
+
+
+##part 6 code
+f = codecs.open("toy_corpus.txt", encoding = "utf-16")
+wf=open('bigram_eval.txt','w+')
+sents=f.readlines()
+for sent in sents:
+    sent=sent.split()
+    sent_len=len(sent)
+    print(sent_len)
+    prob=1.
+    prev='<s>'
+    for word in sent:
+        word=word.rstrip().lower()
+        prob*=probs[word_index_dict[prev]][word_index_dict[word]]
+        prev=word
+    print(prob)
+    perplexity=1.0/(pow(prob, 1./sent_len))
+    wf.write(str(perplexity)+'\n')
+f.close()
+wf.close()
