@@ -43,7 +43,7 @@ for sent in sents:
         counts[word_index_dict[prev],word_index_dict[word]]+=1
 #        print(counts[word_index_dict[prev],word_index_dict[word]])
         prev=word
-
+#
 #print(counts[word_index_dict['all']][word_index_dict['the']])
 #print(counts[word_index_dict['the']][word_index_dict['jury']])
 
@@ -85,7 +85,19 @@ for sent in sents:
 f.close()
 wf.close()
 
+##part 7 code
+wf=open('smoothed_generation.txt', 'w+')
+for i in range(10):
+    wf.write(GENERATE(word_index_dict, probs, 'bigram', 15, '<s>'))
+    wf.write('\n')
+wf.close()
 
-#Answer to question: the probabilities drop much less for the bigrams conditioned on 'the'
+
+#Answer to question 4: the probabilities drop much less for the bigrams conditioned on 'the'
 #because the counts are much higher, so the extra .1*n added to the denominator is not as significant
 #as for bigrams with lower counts
+
+#Answer to question 6: the unigram model performed the worst. Smoothing hurt the performance on
+#this corpus because there were no cases where the bigram had not been seen in the training data,
+#so smoothing only hurts the existing probabilities in favor of those that are never seen
+

@@ -76,6 +76,13 @@ for sent in sents:
 f.close()
 wf.close()
 
+##part 7 code
+wf=open('unigram_generation.txt', 'w+')
+for i in range(10):
+    wf.write(GENERATE(word_index_dict, probs, 'unigram', 15, '<s>'))
+    wf.write('\n')
+wf.close()
+
 
 #answer to question: roughly 2/3 of the words were only seen once. I would expect this 
 #ratio to be lower in a larger corpus, since the vocabulary of any corpus tends to be much
