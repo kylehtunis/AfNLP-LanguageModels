@@ -35,7 +35,7 @@ for sent in sents:
     sent=sent.split()
 #    print(sent)
     prev='<s>'
-    for word in sent:
+    for word in sent[1:]:
         word=word.rstrip().lower()
 #        print(prev+' | '+word)
         counts[word_index_dict[prev],word_index_dict[word]]+=1
@@ -70,14 +70,16 @@ for sent in sents:
     sent=sent.split()
     sent_len=len(sent)
 #    print(sent_len)
-    prob=1.
-    prev='<s>'
-    for word in sent:
+    prob=1
+    prev=sent[0].rstrip().lower()
+    for word in sent[1:]:
         word=word.rstrip().lower()
         prob*=probs[word_index_dict[prev]][word_index_dict[word]]
+#        print(probs[word_index_dict[prev]][word_index_dict[word]])
         prev=word
 #    print(prob)
-    perplexity=1.0/(pow(prob, 1./sent_len))
+    perplexity=1/(pow(prob, 1/sent_len))
+#    print(perplexity)
     wf.write(str(perplexity)+'\n')
 f.close()
 wf.close()
@@ -85,6 +87,6 @@ wf.close()
 ##part 7 code
 wf=open('bigram_generation.txt', 'w+')
 for i in range(10):
-    wf.write(GENERATE(word_index_dict, probs, 'bigram', 15, '<s>'))
+    wf.write(GENERATE(word_index_dict, probs, 'bigram', 10, '<s>'))
     wf.write('\n')
 wf.close()

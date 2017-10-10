@@ -28,7 +28,7 @@ f = codecs.open("brown_100.txt", encoding = "utf-16")
 
 
 counts = np.ndarray((len(word_index_dict),len(word_index_dict)))
-counts[:][:]=0
+counts[:][:]=0.1
 
 
 #TODO: iterate through file and update counts
@@ -37,7 +37,7 @@ for sent in sents:
     sent=sent.split()
 #    print(sent)
     prev='<s>'
-    for word in sent:
+    for word in sent[1:]:
         word=word.rstrip().lower()
 #        print(prev+' | '+word)
         counts[word_index_dict[prev],word_index_dict[word]]+=1
@@ -47,7 +47,7 @@ for sent in sents:
 #print(counts[word_index_dict['all']][word_index_dict['the']])
 #print(counts[word_index_dict['the']][word_index_dict['jury']])
 
-counts+=.1
+#counts+=.1
 #TODO: normalize counts
 probs=normalize(counts, norm='l1', axis=1)
 #print(probs.tolist())
@@ -74,21 +74,25 @@ sents=f.readlines()
 for sent in sents:
     sent=sent.split()
     sent_len=len(sent)
-    prob=1.
-    prev='<s>'
-    for word in sent:
+#    print(sent_len)
+    prob=1
+    prev=sent[0].rstrip().lower()
+    for word in sent[1:]:
         word=word.rstrip().lower()
+#        print(word+' | '+word)
         prob*=probs[word_index_dict[prev]][word_index_dict[word]]
+#        print(probs[word_index_dict[prev]][word_index_dict[word]])
         prev=word
+#    print(prob)
     perplexity=1/(pow(prob, 1./sent_len))
+#    print(perplexity)
     wf.write(str(perplexity)+'\n')
 f.close()
 wf.close()
-
 ##part 7 code
 wf=open('smoothed_generation.txt', 'w+')
 for i in range(10):
-    wf.write(GENERATE(word_index_dict, probs, 'bigram', 15, '<s>'))
+    wf.write(GENERATE(word_index_dict, probs, 'bigram', 10, '<s>'))
     wf.write('\n')
 wf.close()
 
@@ -101,3 +105,7 @@ wf.close()
 #this corpus because there were no cases where the bigram had not been seen in the training data,
 #so smoothing only hurts the existing probabilities in favor of those that are never seen
 
+#Answer to question 7: the unigram generation performs by far the most poorly. The sentences
+#generated are completely incoherent. The bigram and smoothed perform somewhat evenly, although
+#they still don't generate understandable sentences. However, they do generate some series of 
+#words that together hold some meaning.

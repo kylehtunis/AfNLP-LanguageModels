@@ -67,11 +67,11 @@ sents=f.readlines()
 for sent in sents:
     sent=sent.split()
     sent_len=len(sent)
-    prob=1.
+    prob=1
     for word in sent:
         word=word.rstrip().lower()
         prob*=probs[word_index_dict[word]]
-    perplexity=1/(pow(prob, 1./sent_len))
+    perplexity = 1/(pow(prob, 1.0/sent_len))
     wf.write(str(perplexity)+'\n')
 f.close()
 wf.close()
@@ -79,7 +79,7 @@ wf.close()
 ##part 7 code
 wf=open('unigram_generation.txt', 'w+')
 for i in range(10):
-    wf.write(GENERATE(word_index_dict, probs, 'unigram', 15, '<s>'))
+    wf.write(GENERATE(word_index_dict, probs, 'unigram', 10, '<s>'))
     wf.write('\n')
 wf.close()
 
