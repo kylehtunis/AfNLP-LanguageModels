@@ -87,6 +87,6 @@ wf.close()
 ##part 7 code
 wf=open('bigram_generation.txt', 'w+')
 for i in range(10):
-    wf.write(GENERATE(word_index_dict, probs, 'bigram', 10, '<s>'))
+    wf.write(GENERATE(word_index_dict, probs, 'bigram', 15, '<s>'))
     wf.write('\n')
 wf.close()

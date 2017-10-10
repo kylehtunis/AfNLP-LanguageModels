@@ -40,7 +40,7 @@ def GENERATE(word_index_dict, probs, model_type, max_words, start_word):
 
         #using https://stackoverflow.com/questions/483666/python-reverse-invert-a-mapping
         while(True):
-            wordIndex = np.random.choice(len(word_index_dict), 1, list(probs))
+            wordIndex = np.random.choice(len(word_index_dict), 1, p=list(probs))
             word = index_word_dict[wordIndex[0]]
             returnSTR += word + " "
             num_words +=1
@@ -54,7 +54,7 @@ def GENERATE(word_index_dict, probs, model_type, max_words, start_word):
         returnSTR = start_word + " "
         prevWord = start_word
         while(True):
-            wordIndex = np.random.choice(len(word_index_dict), 1, list(probs[word_index_dict[prevWord]]))
+            wordIndex = np.random.choice(len(word_index_dict), 1, p=list(probs[word_index_dict[prevWord]]))
             word = index_word_dict[wordIndex[0]]
             returnSTR += word + " "
             num_words +=1
