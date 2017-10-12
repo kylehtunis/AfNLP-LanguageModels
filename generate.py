@@ -58,7 +58,12 @@ def GENERATE(word_index_dict, probs, model_type, max_words, start_word):
             word = index_word_dict[wordIndex[0]]
             returnSTR += word + " "
             num_words +=1
+            prevWord = word
             if word == "</s>" or num_words == max_words:
                 break
 
         return returnSTR
+
+
+
+
